@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+      <title>Edit Student</title>
+</head>
+
+<body style="font-family: Arial; background:#eef2f3;">
+
+      <h2 style="text-align:center; color:#333;">Edit Student</h2>
+
+      <center>
+            <form action="/update-student" method="post"
+                  style="background:#fff; padding:20px; width:400px; border-radius:8px; box-shadow:0 0 10px #ccc;">
+
+                  <table cellpadding="8" style="width:100%;">
+                        <tr>
+                              <td>ID</td>
+                              <td>
+                                    <input type="text" name="id" value="<%= student.id %>" readonly
+                                          style="width:100%; padding:6px; background:#eee;">
+                              </td>
+                        </tr>
+                        <tr>
+                              <td>Name</td>
+                              <td>
+                                    <input type="text" name="name" value="<%= student.name %>"
+                                          style="width:100%; padding:6px;">
+                              </td>
+                        </tr>
+                        <tr>
+                              <td>Email</td>
+                              <td>
+                                    <input type="text" name="email" value="<%= student.email %>"
+                                          style="width:100%; padding:6px;">
+                              </td>
+                        </tr>
+                        <tr>
+                              <td>Course</td>
+                              <td>
+                                    <input type="text" name="course" value="<%= student.course %>"
+                                          style="width:100%; padding:6px;">
+                              </td>
+                        </tr>
+                        <tr>
+                              <td></td>
+                              <td>
+                                    <input type="submit" value="Update Student"
+                                          style="padding:8px 15px; background:#007bff; color:#fff; border:none; cursor:pointer;">
+                              </td>
+                        </tr>
+                  </table>
+            </form>
+      </center>
+
+</body>
+
+</html>
