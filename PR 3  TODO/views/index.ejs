@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>🌸 My Cute Tasks</title>
+</head>
+
+<body style="margin:0;font-family:Segoe UI,sans-serif;background:#fdfcff;color:#334155;">
+
+    <h1 style="text-align:center;margin-top:30px;color:#7c3aed;">🌸 My Daily Cute Tasks</h1>
+
+    <div
+        style="background:#fff;width:420px;margin:20px auto;padding:25px;border-radius:16px;box-shadow:0 15px 40px rgba(0,0,0,0.08);">
+        <form action="/addtask" method="post">
+            <input type="text" name="task" placeholder="💭 Enter your task today" required
+                style="width:100%;padding:10px;margin-top:12px;border-radius:8px;border:1px solid #e2e8f0;">
+            <input type="number" name="timeout" placeholder="⏱ Time in minutes" required
+                style="width:100%;padding:10px;margin-top:12px;border-radius:8px;border:1px solid #e2e8f0;">
+            <button
+                style="width:100%;margin-top:15px;padding:10px;background:#7c3aed;color:white;border:none;border-radius:10px;font-size:16px;cursor:pointer;">✨
+                Add My Task</button>
+        </form>
+    </div>
+
+    <table
+        style="width:85%;margin:40px auto;border-collapse:collapse;background:white;border-radius:14px;overflow:hidden;box-shadow:0 20px 45px rgba(0,0,0,0.07);">
+        <tr>
+            <th style="background:#f3e8ff;padding:14px;color:#6d28d9;">🌼 Task</th>
+            <th style="background:#f3e8ff;padding:14px;color:#6d28d9;">⏰ Time</th>
+            <th style="background:#f3e8ff;padding:14px;color:#6d28d9;">💖 Tools</th>
+        </tr>
+
+        <% tasks.forEach(task=> { %>
+            <tr>
+                <td style="padding:14px;text-align:center;border-bottom:1px solid #f1f5f9;">
+                    <%= task.task %>
+                </td>
+                <td style="padding:14px;text-align:center;border-bottom:1px solid #f1f5f9;">
+                    <%= task.timeout %> min
+                </td>
+                <td style="padding:14px;text-align:center;border-bottom:1px solid #f1f5f9;">
+                    <!-- Loved -->
+                    <a href="javascript:void(0)" onclick="showInfo('Loved', 'This task is your favorite 💗')"
+                        style="margin:0 5px;  text-decoration: none; font-size:18px;color:<%= task.status=='loved'?'#f472b6':'#cbd5e1' %>;">💗</a>
+                    <!-- Important -->
+                    <a href="javascript:void(0)" onclick="showInfo('Important', 'This task is very important ⭐')"
+                        style="margin:0 5px; text-decoration: none; font-size:18px;color:<%= task.status=='important'?'#facc15':'#cbd5e1' %>;">⭐</a>
+                    <!-- Completed -->
+                    <a href="javascript:void(0)" onclick="showInfo('Completed', 'You have completed this task ✔')"
+                        style="margin:0 5px;text-decoration: none; font-size:18px;color:<%= task.status=='done'?'#22c55e':'#cbd5e1' %>;">✔</a>
+                    <!-- Delete -->
+                    <a href="/deletetask/<%= task.id %>" title="Delete"
+                        style="margin:0 5px; text-decoration: none; font-size:18px;color:#ef4444;">🗑</a>
+                </td>
+            </tr>
+            <% }) %>
+    </table>
+
+    <!-- Mini Popup JS -->
+    <script>
+        function showInfo( title, message ) {
+            // simple alert popup
+            alert( title + ":\n" + message );
+        }
+    </script>
+
+</body>

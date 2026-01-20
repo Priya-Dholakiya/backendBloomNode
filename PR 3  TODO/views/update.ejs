@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>🔄 Update Task</title>
+</head>
+
+<body style="margin:0;font-family:Segoe UI,sans-serif;background:#fdfcff;color:#334155;">
+
+    <h1 style="text-align:center;margin-top:30px;color:#7c3aed;">🔄 Update Your Task</h1>
+
+    <div
+        style="background:#fff;width:420px;margin:40px auto;padding:25px;border-radius:16px;box-shadow:0 15px 40px rgba(0,0,0,0.08);">
+        <form action="/updatetask" method="post">
+            <!-- Hidden ID field -->
+            <input type="hidden" name="id" value="<%= task.id %>">
+
+            <!-- Task Name -->
+            <input type="text" name="task" value="<%= task.task %>" required
+                style="width:100%;padding:10px;margin-top:12px;border-radius:8px;border:1px solid #e2e8f0;"
+                placeholder="💭 Update your task">
+
+            <!-- Task Time -->
+            <input type="number" name="timeout" value="<%= task.timeout %>" required
+                style="width:100%;padding:10px;margin-top:12px;border-radius:8px;border:1px solid #e2e8f0;"
+                placeholder="⏱ Time in minutes">
+
+            <!-- Buttons -->
+            <button type="submit"
+                style="width:100%;margin-top:15px;padding:10px;background:#7c3aed;color:white;border:none;border-radius:10px;font-size:16px;cursor:pointer;">
+                ✨ Save Changes
+            </button>
+            <a href="/" style="display:block;text-align:center;margin-top:10px;color:#7c3aed;text-decoration:none;">⬅
+                Back to Tasks</a>
+        </form>
+    </div>
+
+</body>
+
+</html>
