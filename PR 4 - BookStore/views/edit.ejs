@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Book</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-gradient-to-br from-slate-900 via-zinc-950 to-black text-white min-h-screen flex justify-center items-center">
+
+<form action="/editBook?id=<%= book._id %>" method="post"
+      enctype="multipart/form-data"
+      class="bg-zinc-900/80 backdrop-blur p-8 rounded-xl w-[600px] grid gap-4 shadow-xl">
+
+<h2 class="text-3xl font-bold text-indigo-400 text-center">✏ Edit Book</h2>
+
+<input name="title" value="<%= book.title %>" class="input">
+<input name="author" value="<%= book.author %>" class="input">
+<input type="number" name="price" value="<%= book.price %>" class="input">
+<input name="genre" value="<%= book.genre %>" class="input">
+
+<textarea name="discription" class="input"><%= book.discription %></textarea>
+
+<!-- OLD IMAGE -->
+<div class="flex gap-4 items-center">
+    <img src="<%= book.imagePath %>"
+         class="w-36 h-52 object-cover rounded-lg border border-zinc-700">
+    <span class="text-zinc-400">Current Cover</span>
+</div>
+
+<!-- FILE BUTTON -->
+<label class="bg-indigo-600 px-5 py-2 rounded-lg cursor-pointer hover:bg-indigo-500 w-fit">
+    📁 Change Cover Image
+    <input type="file" name="coverImage" hidden>
+</label>
+
+<button class="bg-emerald-600 py-2 rounded-lg hover:bg-emerald-500 mt-4">
+    💾 Update Book
+</button>
+
+</form>
+
+<style>
+.input{
+    background:#27272a;
+    padding:10px;
+    border-radius:8px;
+    outline:none;
+}
+</style>
+
+</body>
+</html>

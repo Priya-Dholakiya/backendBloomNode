@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BookStore</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-gradient-to-br from-slate-900 via-zinc-950 to-black text-white min-h-screen">
+
+<!-- HEADER -->
+<header class="flex justify-between items-center px-10 py-6">
+    <h1 class="text-4xl font-bold text-indigo-400">📚 BookStore</h1>
+
+    <form method="post" action="/search" class="flex gap-2">
+        <input type="text" name="search" placeholder="Search books..."
+            class="bg-zinc-800 px-4 py-2 rounded-lg outline-none">
+        <button class="bg-indigo-600 px-4 py-2 rounded-lg hover:bg-indigo-500">
+            Search
+        </button>
+    </form>
+</header>
+
+<!-- ADD BOOK FORM -->
+<section class="max-w-5xl mx-auto bg-zinc-900/80 backdrop-blur p-6 rounded-xl shadow-xl">
+<form action="/addBook" method="post" enctype="multipart/form-data"
+      class="grid grid-cols-2 gap-4 text-lg">
+
+<input required name="title" placeholder="Book Title" class="input">
+<input required name="author" placeholder="Author" class="input">
+
+<input required type="number" name="price" placeholder="Price" class="input">
+<input name="genre" placeholder="Genre (optional)" class="input">
+
+<textarea required name="discription" placeholder="Description"
+          class="input col-span-2"></textarea>
+
+<!-- FILE BUTTON -->
+<div class="col-span-2 flex items-center gap-4">
+    <label class="bg-indigo-600 px-5 py-2 rounded-lg cursor-pointer hover:bg-indigo-500">
+        📁 Choose Cover Image
+        <input type="file" name="coverImage" hidden onchange="showFileName(this)">
+    </label>
+    <span id="fileName" class="text-zinc-400"></span>
+</div>
+
+<button class="col-span-2 bg-emerald-600 py-2 rounded-lg hover:bg-emerald-500 mt-2">
+    ➕ Add Book
+</button>
+</form>
+</section>
+
+<!-- BOOK LIST -->
+<section class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-14 pb-20">
+
+<% book.forEach(item => { %>
+<div class="bg-zinc-800/80 rounded-xl overflow-hidden shadow-lg hover:scale-105 duration-200">
+
+<img src="<%= item.imagePath %>"
+     class="h-64 w-full object-cover">
+
+<div class="p-4">
+    <h2 class="text-xl font-semibold"><%= item.title %></h2>
+    <p class="text-sm text-zinc-400"><%= item.author %></p>
+
+    <p class="text-emerald-400 font-bold mt-1">₹ <%= item.price %></p>
+
+    <p class="text-sm mt-2 line-clamp-3"><%= item.discription %></p>
+
+    <div class="flex justify-between mt-4">
+        <a href="/editBook?id=<%= item._id %>" class="text-yellow-400 hover:underline">
+            ✏ Edit
+        </a>
+
+        <form action="/deleteBook?id=<%= item._id %>" method="post">
+            <button class="text-red-500 hover:underline">
+                🗑 Delete
+            </button>
+        </form>
+    </div>
+</div>
+</div>
+<% }) %>
+
+</section>
+
+<!-- JS -->
+<script>
+function showFileName(input){
+    document.getElementById('fileName').innerText =
+        input.files[0]?.name || ''
+}
+</script>
+
+<style>
+.input{
+    background:#27272a;
+    padding:10px;
+    border-radius:8px;
+    outline:none;
+}
+</style>
+
+</body>
+</html>
