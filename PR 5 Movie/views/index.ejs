@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Movie Library</title>
+    <style>
+        * { box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { margin:0; padding:40px; background:#ffe6f0; color:#330033; }
+        h1 { font-size:32px; margin-bottom:30px; text-align:center; color:#b30059; }
+        h2 { margin-top:50px; margin-bottom:20px; font-size:24px; color:#b30059; }
+
+        .form-wrapper { max-width:520px; margin:0 auto 40px auto; background:#ffccdf; padding:30px; border-radius:12px; }
+
+        label { font-size:14px; margin-bottom:6px; display:block; color:#330033; }
+        input { width:100%; padding:10px; margin-bottom:16px; background:#ffe6f0; border:1px solid #b30059; color:#330033; border-radius:6px; }
+        input:focus { outline:none; border-color:#ff3399; }
+
+        button { width:100%; padding:12px; background:#b30059; border:none; color:#fff; font-weight:600; cursor:pointer; border-radius:6px; transition:0.3s; }
+        button:hover { background:#ff3399; }
+
+        .card-container { display:flex; gap:20px; overflow-x:auto; padding-bottom:10px; }
+        .movie-card { flex:0 0 220px; background:#ffccdf; border-radius:12px; overflow:hidden; cursor:pointer; transition: transform 0.3s ease; }
+        .movie-card:hover { transform:scale(1.05); }
+        .movie-card img { width:100%; height:300px; object-fit:cover; }
+        .movie-info { padding:12px; }
+        .movie-info h3 { margin:0 0 5px; font-size:16px; color:#b30059; }
+        .movie-info p { margin:2px 0; font-size:13px; color:#330033; }
+        .price { font-weight:600; margin-top:6px; color:#b30059; }
+        .actions { display:flex; gap:8px; margin-top:8px; }
+        .actions a { flex:1; text-align:center; padding:6px 0; font-size:12px; text-decoration:none; border-radius:4px; background:#ff99cc; color:#330033; transition:0.3s; }
+        .actions a:hover { background:#b30059; color:#fff; }
+
+        .card-container::-webkit-scrollbar { height:8px; }
+        .card-container::-webkit-scrollbar-thumb { background:#b30059; border-radius:4px; }
+        .card-container::-webkit-scrollbar-track { background:#ffe6f0; }
+
+    </style>
+</head>
+
+<body>
+    <h1>My Movie Library</h1>
+
+    <div class="form-wrapper">
+        <form action="/Moviedata" method="POST">
+    <label>Movie Title</label>
+    <input type="text" name="moviename" required>
+
+    <label>Author / Director</label>
+    <input type="text" name="author" required>
+
+    <label>Price (₹)</label>
+    <input type="number" name="price" required>
+
+    <label>Category / Genre</label>
+    <input type="text" name="category" required>
+
+    <label>Image URL</label>
+    <input type="text" name="img" required>
+
+    <button type="submit">ADD MOVIE</button>
+</form>
+
+    </div>
+
+    <h2>All Movies</h2>
+
+    <div class="card-container">
+        <% movies.forEach(movie => { %>
+            <div class="movie-card">
+                <img src="<%= movie.img %>" alt="<%= movie.moviename %>">
+                <div class="movie-info">
+                    <h3><%= movie.moviename %></h3>
+                    <p><strong>Author:</strong> <%= movie.author %></p>
+                    <p><strong>Category:</strong> <%= movie.category %></p>
+                    <div class="price">₹ <%= movie.price %></div>
+                    <div class="actions">
+                        <a href="/edit/<%= movie._id %>">EDIT</a>
+                        <a href="/delete/<%= movie._id %>">DELETE</a>
+                    </div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+
+</body>
+
+</html>
