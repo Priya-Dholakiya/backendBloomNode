@@ -1,0 +1,189 @@
+<%- include('../header') %>
+
+<style>
+  body {
+    background: linear-gradient(135deg, #f6d365, #fda085);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .page-title {
+    font-weight: 700;
+    font-size: 2.5rem;
+    background: linear-gradient(90deg,#ff512f,#dd2476);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Search */
+  .search-container {
+    margin-bottom: 25px;
+    text-align: center;
+  }
+
+  .search-input {
+    width: 60%;
+    max-width: 420px;
+    padding: 12px 20px;
+    border-radius: 50px;
+    border: none;
+    outline: none;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+  }
+
+  .search-btn {
+    padding: 12px 25px;
+    border-radius: 50px;
+    border: none;
+    background: linear-gradient(135deg,#667eea,#764ba2);
+    color: #fff;
+    font-weight: 600;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .search-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+
+  /* Category Filters */
+  .category-filters {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
+  }
+
+  .category-filters a {
+    padding: 8px 18px;
+    border-radius: 30px;
+    background: rgba(255,255,255,0.3);
+    backdrop-filter: blur(10px);
+    font-weight: 600;
+    color: #fff;
+    text-decoration: none;
+    transition: 0.3s;
+  }
+
+  .category-filters a:hover,
+  .category-filters a.active {
+    background: #fff;
+    color: #764ba2;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  }
+
+  /* Blog Cards */
+  .blog-card {
+    border-radius: 25px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    background: #ffffff;
+  }
+
+  .blog-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  }
+
+  .blog-img {
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .blog-card:hover .blog-img {
+    transform: scale(1.08);
+  }
+
+  .card-title {
+    font-weight: 700;
+    color: #333;
+  }
+
+  .card-text {
+    color: #555;
+  }
+
+  /* Explore Button */
+  .explore-btn {
+    border-radius: 50px;
+    background: linear-gradient(135deg,#ff512f,#dd2476);
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    transition: 0.3s;
+  }
+
+  .explore-btn:hover {
+    transform: scale(1.07);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  }
+
+  @media(max-width:768px){
+    .search-input {
+      width: 80%;
+      margin-bottom: 10px;
+    }
+    .search-btn {
+      margin-left: 0;
+      margin-top: 10px;
+    }
+  }
+
+</style>
+
+<div class="page-wrapper">
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-12 text-center">
+        <h4 class="page-title">Our Blogs</h4>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+
+    <!-- Search Bar -->
+    <div class="search-container">
+      <form action="/blog/viewblog" method="GET">
+        <input type="text" name="search" class="search-input"
+          placeholder="Search by title or category..."
+          value="<%= searchQuery || '' %>">
+        <button type="submit" class="search-btn">Search</button>
+      </form>
+    </div>
+    <div class="row">
+      <% if(blogs.length === 0){ %>
+        <div class="col-12 text-center text-white">
+          <h5>No blogs found</h5>
+        </div>
+      <% } %>
+
+      <% blogs.forEach((blog) => { %>
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card blog-card h-100">
+            <% if(blog.coverImage){ %>
+              <img src="/<%= blog.coverImage %>" class="card-img-top blog-img">
+            <% } %>
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title"><%= blog.title %></h5>
+              <p class="text-muted mb-2">
+                <small><%= blog.date ? new Date(blog.date).toDateString() : "-" %></small>
+              </p>
+              <p class="card-text"><%= blog.shortDes %></p>
+              <div class="mt-auto">
+                <a href="/blog/single/<%= blog._id %>"
+                   class="btn explore-btn px-4">Explore More →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+
+  </div>
+</div>
+
+<%- include('../footer') %>

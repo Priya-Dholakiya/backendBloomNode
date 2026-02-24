@@ -1,0 +1,145 @@
+<%- include('../header') %>
+
+<style>
+body{
+  background: linear-gradient(135deg,#ff9a9e,#fad0c4);
+  font-family: 'Poppins', sans-serif;
+}
+
+.card{
+  border-radius:20px;
+  border:none;
+  box-shadow:0 20px 40px rgba(0,0,0,0.15);
+  overflow:hidden;
+}
+
+.card-body{
+  background:#ffffff;
+  padding:40px;
+}
+
+.card-title{
+  text-align:center;
+  font-weight:700;
+  font-size:24px;
+  margin-bottom:30px;
+  background:linear-gradient(90deg,#667eea,#764ba2);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.form-group label{
+  font-weight:600;
+  color:#555;
+}
+
+.form-control{
+  border-radius:12px;
+  border:2px solid #eee;
+  padding:10px 15px;
+  transition:0.3s;
+}
+
+.form-control:focus{
+  border-color:#667eea;
+  box-shadow:0 0 10px rgba(102,126,234,0.4);
+}
+
+.form-control-file{
+  border-radius:10px;
+}
+
+.card-footer{
+  background:#fff;
+  border-top:none;
+  text-align:center;
+  padding-bottom:30px;
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,#667eea,#764ba2);
+  border:none;
+  padding:10px 35px;
+  border-radius:50px;
+  font-weight:600;
+  transition:0.3s;
+}
+
+.btn-primary:hover{
+  transform:scale(1.05);
+  box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+</style>
+
+<div class="page-wrapper">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card">
+
+          <form action="/blog/updateblog/<%= blogData._id %>" 
+                method="POST" 
+                enctype="multipart/form-data">
+
+            <div class="card-body">
+              <h4 class="card-title">Edit Blog</h4>
+
+              <div class="form-group mb-3">
+                <label>Title</label>
+                <input type="text" 
+                       name="title" 
+                       value="<%= blogData.title %>" 
+                       class="form-control" 
+                       required>
+              </div>
+
+              <div class="form-group mb-3">
+                <label>Short Description</label>
+                <input type="text" 
+                       name="shortDes" 
+                       value="<%= blogData.shortDes %>" 
+                       class="form-control" 
+                       required>
+              </div>
+
+              <div class="form-group mb-3">
+                <label>Content</label>
+                <textarea name="content" 
+                          class="form-control" 
+                          rows="5" 
+                          required><%= blogData.content %></textarea>
+              </div>
+
+              <div class="form-group mb-3">
+                <label>Category</label>
+                <input type="text" 
+                       name="category" 
+                       value="<%= blogData.category %>" 
+                       class="form-control" 
+                       required>
+              </div>
+
+              <div class="form-group mb-3">
+                <label>Change Cover Image</label>
+                <input type="file" 
+                       name="coverImage" 
+                       class="form-control-file">
+              </div>
+
+            </div>
+
+            <div class="card-footer">
+              <button type="submit" class="btn btn-primary">
+                Update Blog
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../footer') %>
