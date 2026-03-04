@@ -1,0 +1,55 @@
+<%- include('../header') %>
+
+<div class="page-wrapper">
+  <div class="container-fluid">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="card p-3 shadow-lg rounded-4">
+
+          <form action="/blog/addblog" method="POST" enctype="multipart/form-data">
+            
+            <div class="card-body">
+              <h4 class="card-title mb-4" style="display:flex; justify-content:center;">Add Blog</h4>
+              <div class="form-group mb-3">
+                <label>Title</label>
+                <input type="text" name="title" class="form-control" placeholder="Enter blog title" required>
+              </div>
+              <div class="form-group mb-3">
+                <label>Short Description</label>
+                <input type="text" name="shortDes" class="form-control" placeholder="Enter short description" required>
+              </div>
+              <div class="form-group mb-3">
+                <label>Content</label>
+                <textarea name="content" class="form-control" rows="5" placeholder="Enter blog content" required></textarea>
+              </div>
+
+              <div class="form-group mb-3">
+                <label>Category</label>
+                <select name="category" class="form-control" required>
+                  <option value="">Select Category</option>
+                  <option value="Technology">Technology</option>
+                  <option value="Lifestyle">Lifestyle</option>
+                  <option value="Education / Learning">Education / Learning</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Finance / Business">Finance / Business</option>
+                </select>
+              </div>
+
+              <div class="form-group mb-3">
+                <label>Cover Image</label>
+                <input type="file" name="coverImage" class="form-control-file">
+              </div>
+            </div>
+
+            <div class="card-footer text-end">
+              <button type="submit" class="btn btn-primary px-4">Submit</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../footer') %>
