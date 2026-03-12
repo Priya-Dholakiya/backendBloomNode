@@ -1,17 +1,17 @@
-const express = require('express');
+const express = require("express");
+const { addadminpage, addadmin, viewadminpage, deleteadmin, editadmin, updateadmin } = require("../controller/admin.controller");
+const uploadsimage = require("../middleware/image.uploads");
+
 const routes = express.Router();
-const passport = require('passport');
 
-const {addAdminPage,addAdmin,viewAllAdmins,editAdmin,updateAdmin,deleteAdmin} = require('../controllers/admin.controller');    
-const uploadImage = require('../middleware/uploadImage');
+routes.get("/add-admin", addadminpage);
+routes.post("/add-admin", uploadsimage.single("ProfileImage"), addadmin);
+routes.get("/view-admin", viewadminpage);
+routes.get("/delete-admin/:id", deleteadmin);
+routes.get("/edit-admin/:id", editadmin);
+routes.post("/update-admin/:id", uploadsimage.single("ProfileImage"),updateadmin);
 
-routes.get('/addadmin', addAdminPage);
-routes.post('/addadmin',uploadImage.single('profileImage'),addAdmin);
-routes.get('/viewadmin', viewAllAdmins);
 
-routes.get("/editAdmin/:id", editAdmin);
-routes.post("/updateAdmin/:id",uploadImage.single("profileImage"),updateAdmin);
-routes.get('/deleteadmin/:id', deleteAdmin);
 
 
 module.exports = routes;

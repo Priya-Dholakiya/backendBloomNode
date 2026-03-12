@@ -1,0 +1,197 @@
+<%- include('../header') %>
+    <!-- ============================================================== -->
+    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center">
+                    <h4 class="page-title">Single View</h4>
+                    <div class="ml-auto text-right">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Library</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+        <div class="container-fluid">
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+
+    <div class="row">
+    <div class="col-xl-8 col-lg-9 mx-auto">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body px-4 py-4">
+
+                <!-- Title -->
+                <h4 class="font-weight-bold text-dark mb-4">
+                    <%= blog.Title %>
+                </h4>
+
+                <div class="row align-items-center">
+
+                    <!-- Image -->
+                    <div class="col-md-3 text-center">
+                        <% if (blog.BlogImage) { %>
+                            <img src="<%= blog.BlogImage %>"
+                                 class="img-fluid rounded border mb-3 mb-md-0"
+                                 width="130">
+                        <% } else { %>
+                            <span class="text-muted small">No Image</span>
+                        <% } %>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="col-md-9">
+
+                        <div class="row mb-3">
+
+                            <div class="col-md-4">
+                                <small class="text-muted d-block">Category</small>
+                                <strong><%= blog.Category %></strong>
+                            </div>
+
+                            <div class="col-md-4">
+                                <small class="text-muted d-block">Author</small>
+                                <strong><%= blog.Name %></strong>
+                            </div>
+
+                            <div class="col-md-4">
+                                <small class="text-muted d-block">Status</small>
+                                <span class="badge badge-success px-3">
+                                    <%= blog.Status %>
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <small class="text-muted d-block">Date</small>
+                                <strong><%= blog.Date %></strong>
+                            </div>
+                        </div>
+
+                        <div>
+                            <small class="text-muted d-block">Description</small>
+                            <p class="mb-0 text-dark">
+                                <%= blog.Description %>
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="card-footer bg-white text-right py-2">
+                <a href="/blogs/view-blog" type="button" class="btn btn-light btn-sm">Back</a>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Page wrapper  -->
+    <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Wrapper -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- All Jquery -->
+    <!-- ============================================================== -->
+    <script src="assets/libs/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
+    <script src="assets/extra-libs/sparkline/sparkline.js"></script>
+    <!--Wave Effects -->
+    <script src="dist/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="dist/js/sidebarmenu.js"></script>
+    <!--Custom JavaScript -->
+    <script src="dist/js/custom.min.js"></script>
+    <!-- this page js -->
+    <script src="assets/libs/jquery-steps/build/jquery.steps.min.js"></script>
+    <script src="assets/libs/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script>
+        // Basic Example with form
+        var form = $("#example-form");
+        form.validate({
+            errorPlacement: function errorPlacement(error, element) { element.before(error); },
+            rules: {
+                confirm: {
+                    equalTo: "#password"
+                }
+            }
+        });
+        form.children("div").steps({
+            headerTag: "h3",
+            bodyTag: "section",
+            transitionEffect: "slideLeft",
+            onStepChanging: function (event, currentIndex, newIndex) {
+                form.validate().settings.ignore = ":disabled,:hidden";
+                return form.valid();
+            },
+            onFinishing: function (event, currentIndex) {
+                form.validate().settings.ignore = ":disabled";
+                return form.valid();
+            },
+            onFinished: function (event, currentIndex) {
+                alert("Submitted!");
+            }
+        });
+
+
+    </script>
+    <%- include('../footer') %>
+        </body>
+
+        </html>

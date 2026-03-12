@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 
 const dbConnect = () => {
-    mongoose.connect(
-        "mongodb+srv://piyudholakiya81_db_user:paz2kRUp6Eyd5AiJ@cluster0.zjjtcyq.mongodb.net/?appName=Cluster0"
-    )
-    .then(() => console.log("Database connected successfully"))
-    .catch((err) => console.log(err));
+    mongoose
+      .connect(
+        "mongodb+srv://priya:priya%404016@cluster0.f4gaei5.mongodb.net/login",
+      )
+      .then(() => console.log("Database connected successfully"))
+      .catch((err) => console.log(err));
 };
 
 module.exports = dbConnect;

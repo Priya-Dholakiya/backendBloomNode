@@ -1,16 +1,18 @@
-const express = require("express");
-const {addblogPage,addblog, viewAllblogs, editblog,updateblog, deleteblog,singleBlog} = require("../controllers/blog.controller");
+const express = require('express');
+const { getdashboard, addblogpage, addblog, viewblog, deleteblog, editblog, updateblog, view } = require('../controller/blog.controller');
+const uploadsimage = require('../middleware/image.uploads');
+const routes = require('./admin.routes');
 
-const uploadImage = require("../middleware/uploadImage");
-const routes = express.Router();
+const router = express.Router();
 
-routes.get("/addblog", addblogPage);
-routes.post("/addblog", uploadImage.single("coverImage"), addblog);
-routes.get("/viewblog", viewAllblogs);
-routes.get("/editblog/:id", editblog);
-routes.post("/updateblog/:id", uploadImage.single("coverImage"), updateblog);
-routes.get("/deleteblog/:id", deleteblog);
 
-routes.get("/single/:id", singleBlog);
+router.get("/add-blog", addblogpage);
+router.post("/add-blog", uploadsimage.single("BlogImage"), addblog);
+router.get("/view-blog", viewblog);
+router.get("/delete-blog/:id", deleteblog);
+router.get("/edit-blog/:id", editblog);
+router.post("/update-blog/:id", uploadsimage.single("BlogImage"), updateblog);
+router.get("/view/:id", view);
 
-module.exports = routes;
+
+module.exports = router;
