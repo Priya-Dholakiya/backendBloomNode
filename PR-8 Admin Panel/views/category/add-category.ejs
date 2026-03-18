@@ -1,0 +1,112 @@
+<%- include('../header') %>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+
+<link rel="stylesheet" href="../../css/password.style.css">
+
+<div class="page-wrapper">
+
+<div class="page-breadcrumb">
+<div class="row">
+<div class="col-12 d-flex no-block align-items-center">
+<h4 class="page-title">Blog Details</h4>
+
+<div class="ml-auto text-right">
+<nav aria-label="breadcrumb">
+<ol class="breadcrumb">
+<li class="breadcrumb-item"><a href="#">Home</a></li>
+<li class="breadcrumb-item active">Library</li>
+</ol>
+</nav>
+</div>
+
+</div>
+</div>
+</div>
+
+<div class="container-fluid">
+<div class="row d-flex justify-content-center">
+<div class="col-md-6">
+
+<div class="card">
+
+<form class="form-horizontal"
+      action="/category/add-category/"
+      method="post"
+      enctype="multipart/form-data">
+
+<div class="card-body">
+<h4 class="card-title">Blog</h4>
+
+<!-- NAME -->
+<div class="form-group row">
+<label class="col-sm-3 text-right control-label col-form-label">
+Name
+</label>
+
+<div class="col-sm-9">
+<input type="text"
+       class="form-control"
+       name="Categoryname"
+       placeholder="category Name Here"
+       required>
+</div>
+</div>
+
+<!-- IMAGE -->
+<div class="form-group row">
+<label class="col-sm-3 text-right control-label col-form-label">
+Category Image
+</label>
+
+<div class="col-sm-9">
+<input type="file"
+       class="form-control"
+       name="CategoryImage"
+       accept="image/*"
+       required>
+</div>
+</div>
+
+<div class="border-top">
+<div class="card-body">
+<button type="submit" class="btn btn-primary">
+Submit
+</button>
+</div>
+</div>
+
+</div>
+</form>
+
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<!-- Password Toggle Script (unchanged) -->
+<script>
+$(document).ready(function () {
+
+$("#togglePassword").removeClass("fa fa-eye").addClass("fa fa-eye-slash");
+
+$("#togglePassword").click(function () {
+const passwordInput = $("#password-field");
+const type = passwordInput.attr("type");
+
+if (type === "password") {
+passwordInput.attr("type", "text");
+$("#togglePassword").removeClass("fa fa-eye-slash").addClass("fa fa-eye");
+} else {
+passwordInput.attr("type", "password");
+$("#togglePassword").removeClass("fa fa-eye").addClass("fa fa-eye-slash");
+}
+});
+
+});
+</script>
+
+<%- include('../footer') %>

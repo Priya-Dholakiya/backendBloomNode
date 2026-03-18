@@ -1,0 +1,25 @@
+<%- include("../common/header") %>
+
+<div class="container mt-5">
+<h3>Your Cart</h3>
+
+<% items.forEach(item=>{ %>
+
+<div class="card p-3 mb-2">
+
+<img src="<%= item.productId.ProductImage %>" width="80">
+
+<h5><%= item.productId.ProductName %></h5>
+
+<p>₹<%= item.price %></p>
+
+<p>Qty <%= item.quantity %></p>
+
+</div>
+
+<% }) %>
+
+</div>
+
+</body>
+</html>

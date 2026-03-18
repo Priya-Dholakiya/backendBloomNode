@@ -1,0 +1,105 @@
+<%- include('header') %>
+
+<div class="page-wrapper">
+
+    <!-- Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex align-items-center">
+                <h4 class="page-title">My Profile</h4>
+                <div class="ml-auto">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-0">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Profile</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+
+            <div class="col-xl-6 col-lg-7 col-md-9">
+
+                <div class="card shadow-sm border-0">
+
+                    <!-- PROFILE HEADER -->
+                    <div class="card-body text-center bg-light rounded-top">
+
+                        <% if (user.ProfileImage) { %>
+                            <img src="<%= user.ProfileImage %>"
+                                class="rounded-circle mb-3"
+                                width="130" height="130"
+                                style="object-fit:cover;">
+                        <% } else { %>
+                            <div class="rounded-circle bg-secondary text-white d-flex align-items-center justify-content-center mx-auto mb-3"
+                                style="width:130px;height:130px;">
+                                No Image
+                            </div>
+                        <% } %>
+
+                        <h4 class="mb-1">
+                            <%= user.Firstname %> <%= user.Lastname %>
+                        </h4>
+
+                        <span class="badge badge-info px-3 py-1">
+                            <%= user.gender %>
+                        </span>
+                    </div>
+
+                    <!-- PROFILE DETAILS -->
+                    <div class="card-body px-4">
+
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <small class="text-muted">First Name</small>
+                                <p class="mb-0 font-weight-bold">
+                                    <%= user.Firstname %>
+                                </p>
+                            </div>
+
+                            <div class="col-6">
+                                <small class="text-muted">Last Name</small>
+                                <p class="mb-0 font-weight-bold">
+                                    <%= user.Lastname %>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col-6">
+                                <small class="text-muted">Gender</small>
+                                <p class="mb-0 font-weight-bold">
+                                    <%= user.gender %>
+                                </p>
+                            </div>
+
+                            <div class="col-6">
+                                <small class="text-muted">Email</small>
+                                <p class="mb-0 font-weight-bold">
+                                    <%= user.Email %>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- FOOTER -->
+                    <div class="card-footer bg-white text-right">
+                        <a href="/logout" class="btn btn-danger btn-sm">
+                            Logout
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('footer') %>

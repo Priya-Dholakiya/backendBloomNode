@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ShopEase</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark bg-dark">
+<div class="container">
+
+<a class="navbar-brand" href="/webpage">🛒 ShopEase</a>
+
+<button class="btn btn-warning"
+data-bs-toggle="offcanvas"
+data-bs-target="#cartCanvas">
+Cart 🛒
+</button>
+
+</div>
+</nav>
+
+<!-- OFFCANVAS CART -->
+<div class="offcanvas offcanvas-end" id="cartCanvas">
+
+<div class="offcanvas-header">
+<h5>Your Cart</h5>
+<button class="btn-close" data-bs-dismiss="offcanvas"></button>
+</div>
+
+<div class="offcanvas-body">
+
+<div id="cartItems">
+<p>No items in cart</p>
+</div>
+
+<hr>
+
+<h5>Total ₹<span id="cartTotal">0</span></h5>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+// LOAD CART
+async function loadCart(){
+
+const res = await fetch("/cart/data");
+const items = await res.json();
+
+const cartDiv = document.getElementById("cartItems");
+const totalSpan = document.getElementById("cartTotal");
+
+let total=0;
+
+if(items.length==0){
+cartDiv.innerHTML="<p>No items in cart</p>";
+totalSpan.innerText=0;
+return;
+}
+
+let html=`
+<table class="table">
+<thead>
+<tr>
+<th>Img</th>
+<th>Name</th>
+<th>Qty</th>
+<th>Price</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+`;
+
+items.forEach(i=>{
+total+=i.price*i.quantity;
+
+html+=`
+<tr>
+<td><img src="${i.productId.ProductImage}" width="50"></td>
+<td>${i.productId.ProductName}</td>
+
+<td>
+<button onclick="updateQty('${i._id}',-1)"
+class="btn btn-sm btn-secondary">-</button>
+${i.quantity}
+<button onclick="updateQty('${i._id}',1)"
+class="btn btn-sm btn-secondary">+</button>
+</td>
+
+<td>₹${i.price*i.quantity}</td>
+
+<td>
+<button onclick="deleteItem('${i._id}')"
+class="btn btn-sm btn-danger">X</button>
+</td>
+</tr>`;
+});
+
+html+="</tbody></table>";
+
+cartDiv.innerHTML=html;
+totalSpan.innerText=total;
+}
+
+async function updateQty(id,change){
+await fetch("/cart/update-qty",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({cartId:id,change})
+});
+loadCart();
+}
+
+async function deleteItem(id){
+await fetch("/cart/delete",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({cartId:id})
+});
+loadCart();
+}
+
+// Load when cart button clicked
+document.querySelector('[data-bs-target="#cartCanvas"]')
+.addEventListener("click",loadCart);
+</script>

@@ -1,0 +1,71 @@
+<%- include("../common/header") %>
+
+<div class="container mt-5">
+
+<!-- BACK BUTTON -->
+<a href="/webpage"
+class="btn btn-outline-secondary mb-4">
+← Back to Products
+</a>
+
+<div class="row">
+
+<!-- IMAGE -->
+<div class="col-md-6 text-center">
+
+<img src="<%= product.ProductImage %>"
+style="width:100%;
+height:350px;
+object-fit:contain;
+background:#f8f8f8;
+padding:20px;
+border-radius:10px;">
+
+</div>
+
+<!-- DETAILS -->
+<div class="col-md-6">
+
+<h6 class="text-muted">
+Brand: <%= product.Brand || "No Brand" %>
+</h6>
+
+<h2><%= product.ProductName %></h2>
+
+<h3 class="text-success my-3">
+₹<%= product.Productprice %>
+</h3>
+
+<p class="text-secondary">
+<%= product.discription || "No description available" %>
+</p>
+
+<button class="btn btn-primary btn-lg mt-3 addToCart"
+data-id="<%= product._id %>">
+Add To Cart
+</button>
+
+</div>
+
+</div>
+</div>
+
+<script>
+document.querySelector(".addToCart").onclick=async function(){
+
+await fetch("/cart/add-to-cart",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({productId:this.dataset.id})
+});
+
+const canvas=new bootstrap.Offcanvas(
+document.getElementById("cartCanvas")
+);
+canvas.show();
+
+loadCart();
+};
+</script>
+
+<%- include("../common/footer") %>

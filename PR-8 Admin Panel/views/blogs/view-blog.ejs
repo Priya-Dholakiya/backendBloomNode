@@ -1,0 +1,139 @@
+<%- include('../header') %>
+
+<div class="page-wrapper">
+
+    <!-- Breadcrumb -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-12 d-flex no-block align-items-center">
+                <h4 class="page-title">View Blogs</h4>
+                <div class="ml-auto text-right">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">Blogs</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="row mb-3 justify-content-center">
+        <div class="col-md-3 mb-2">
+            <select id="categoryFilter" class="form-control">
+                <option value="all">All Categories</option>
+                <option value="personal-development">Personal Development</option>
+                <option value="health-fitness">Health & Fitness</option>
+                <option value="lifestyle">Lifestyle</option>
+                <option value="business">Business</option>
+                <option value="travel">Travel</option>
+                <option value="motivation">Motivation</option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <input type="text" id="searchInput" class="form-control"
+                placeholder="Search by blog title...">
+        </div>
+    </div>
+
+    <!-- No Result -->
+    <div id="noResult" class="text-center text-muted mb-3" style="display:none;">
+        No Record Found
+    </div>
+
+    <!-- Blog Cards -->
+    <div class="row">
+
+        <% blog.forEach((item)=> { %>
+
+            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 mb-4 blog-card"
+                data-title="<%= item.Title.toLowerCase() %>"
+                data-category="<%= item.Category.toLowerCase() %>">
+
+                <div class="card h-100 shadow-sm border">
+
+                    <!-- Image -->
+                    <div style="height:220px; overflow:hidden;">
+                        <% if (item.BlogImage) { %>
+                            <img src="<%= item.BlogImage %>"
+                                style="width:100%; height:100%; object-fit:cover;">
+                        <% } else { %>
+                            <div class="d-flex align-items-center justify-content-center h-100 text-muted">
+                                No Image
+                            </div>
+                        <% } %>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="card-body">
+                        <h5 class="font-weight-bold mb-2">
+                            <%= item.Title %>
+                        </h5>
+
+                        <p class="mb-1"><strong>Category:</strong> <%= item.Category %></p>
+                        <p class="mb-1"><strong>Author:</strong> <%= item.Name %></p>
+                        <p class="mb-1"><strong>Date:</strong> <%= item.Date %></p>
+
+                        <p class="text-muted">
+                            <%= item.Description.substring(0, 90) %>...
+                        </p>
+
+                        <span class="badge badge-primary">
+                            <%= item.Status %>
+                        </span>
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="card-footer bg-white text-center">
+                        <a href="/blogs/view/<%= item._id %>" class="btn btn-info btn-sm mr-1">View</a>
+                        <a href="/blogs/edit-blog/<%= item._id %>" class="btn btn-success btn-sm mr-1">Edit</a>
+                        <a href="/blogs/delete-blog/<%= item._id %>" class="btn btn-danger btn-sm">Delete</a>
+                    </div>
+
+                </div>
+            </div>
+
+        <% }) %>
+
+    </div>
+</div>
+
+<!-- JS -->
+<script>
+    const searchInput = document.getElementById('searchInput');
+    const categoryFilter = document.getElementById('categoryFilter');
+    const blogCards = document.querySelectorAll('.blog-card');
+    const noResult = document.getElementById('noResult');
+
+    function filterBlogs() {
+        const searchValue = searchInput.value.toLowerCase();
+        const selectedCategory = categoryFilter.value.toLowerCase();
+        let visibleCount = 0;
+
+        blogCards.forEach(card => {
+            const title = card.getAttribute('data-title');
+            const category = card.getAttribute('data-category');
+
+            const matchTitle = title.includes(searchValue);
+            const matchCategory =
+                selectedCategory === "all" || category === selectedCategory;
+
+            if (matchTitle && matchCategory) {
+                card.style.display = "block";
+                visibleCount++;
+            } else {
+                card.style.display = "none";
+            }
+        });
+
+        noResult.style.display = visibleCount === 0 ? "block" : "none";
+    }
+
+    searchInput.addEventListener('keyup', filterBlogs);
+    categoryFilter.addEventListener('change', filterBlogs);
+</script>
+
+<%- include('../footer') %>

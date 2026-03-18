@@ -1,0 +1,153 @@
+<%- include('../header') %>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="../../css/password.style.css">
+    <!-- ============================================================== -->
+    <!-- End Left Sidebar - style you can find in sidebar.scss  -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Page wrapper  -->
+    <!-- ============================================================== -->
+    <div class="page-wrapper">
+        <!-- ============================================================== -->
+        <!-- Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-12 d-flex no-block align-items-center">
+                    <h4 class="page-title">Edit Blog extrasubcategory</h4>
+                    <div class="ml-auto text-right">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Library</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End Bread crumb and right sidebar toggle -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Container fluid  -->
+        <!-- ============================================================== -->
+
+        <div class="container-fluid  ">
+            <!-- ============================================================== -->
+            <!-- Start Page Content -->
+            <!-- ============================================================== -->
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-6 ">
+                    <div class="card">
+                        <form class="form-horizontal"
+                            action="/extrasubcategory/update-extrasubcategory/<%=extrasubcategory._id%>/" method="post">
+                            <div class="card-body">
+                                <h4 class="card-title"> Exta subcategory</h4>
+                                <div class="form-group row">
+                                    <label for="name" class="col-sm-3 text-right control-label col-form-label">
+                                        Category id</label>
+                                    <div class="col-sm-9">
+                                        <select name="CategoryId" id="">
+                                            <option value="">--select--</option>
+                                            <% categories.forEach((category)=>{%>
+                                                <option value="<%=category.id%>"
+                                                    <%=extrasubcategory.CategoryId.toString()===category._id.toString()
+                                                    ? "selected" : "" %> >
+                                                    <%=category.Categoryname%>
+                                                </option>
+                                                <% }) %>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="name" class="col-sm-3 text-right control-label col-form-label">
+                                        SubCategory id</label>
+                                    <div class="col-sm-9">
+                                        <select name="SubCategoryId" id="">
+                                            <option value="">--select--</option>
+                                            <% subcategories.forEach((subcategory)=>{%>
+                                                <option value="<%=subcategory.id%>"
+                                                        <%=extrasubcategory.SubCategoryId.toString()===subcategory._id.toString()
+                                                    ? "selected" : "" %>>
+                                                    <%=subcategory.SubCategoryName%>
+                                                </option>
+                                                <% }) %>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="name" class="col-sm-3 text-right control-label col-form-label">
+                                        ExtraSubcategory name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="ExtraSubCategoryname"
+                                            placeholder="ExtraSubcategory Name Here"
+                                            value="<%=extrasubcategory.ExtraSubCategoryname%>"
+                                            name="ExtraSubCategoryname">
+                                    </div>
+                                </div>
+
+                                <div class="border-top">
+                                    <div class="card-body">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <!-- editor -->
+
+            <!-- ============================================================== -->
+            <!-- End PAge Content -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- Right sidebar -->
+            <!-- ============================================================== -->
+            <!-- .right-sidebar -->
+            <!-- ============================================================== -->
+            <!-- End Right sidebar -->
+            <!-- ============================================================== -->
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- End Container fluid  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <script>
+            // Source - https://stackoverflow.com/a
+            // Posted by Mahmud Hosen, modified by community. See post 'Timeline' for change history
+            // Retrieved 2025-12-29, License - CC BY-SA 4.0
+
+            $(document).ready(function () {
+
+                //  Toggle  Password Start
+                $("#togglePassword").removeClass("fa fa-eye").addClass("fa fa-eye-slash");
+                $("#togglePassword").click(function () {
+                    const passwordInput = $("#password-field");
+                    const type = passwordInput.attr("type");
+
+                    if (type === "password") {
+                        passwordInput.attr("type", "text");
+                        $("#togglePassword").removeClass("fa fa-eye-slash").addClass("fa fa-eye");
+                    } else {
+                        passwordInput.attr("type", "password");
+                        $("#togglePassword").removeClass("fa fa-eye").addClass("fa fa-eye-slash");
+                    }
+                });
+                //  Toggle  Password End
+            });
+        </script>
+
+
+
+
+
+        <%- include('../footer')%>

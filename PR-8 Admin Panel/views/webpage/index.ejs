@@ -1,0 +1,162 @@
+<%- include("../common/header") %>
+
+<div class="container mt-5">
+
+<h3 class="mb-4">All Products</h3>
+
+<!-- SEARCH + SORT BAR -->
+<div class="d-flex justify-content-between mb-4">
+
+<!-- SEARCH LEFT -->
+<input type="text"
+id="searchInput"
+class="form-control w-50"
+placeholder="Search product...">
+
+<!-- SORT RIGHT -->
+<select id="sortSelect" class="form-select w-25">
+<option value="all">Sort</option>
+<option value="low">Price Low → High</option>
+<option value="high">Price High → Low</option>
+<option value="az">Name A → Z</option>
+<option value="za">Name Z → A</option>
+</select>
+
+</div>
+
+<div class="row" id="productRow">
+
+<% if(products.length === 0){ %>
+
+<h4 class="text-center text-muted">
+No products found
+</h4>
+
+<% } %>
+
+<% products.forEach(p=>{ %>
+
+<div class="col-md-3 mb-4 product-item"
+data-name="<%= p.ProductName.toLowerCase() %>"
+data-price="<%= p.Productprice %>">
+
+<div class="card h-100 shadow-sm">
+
+<img src="<%= p.ProductImage %>"
+class="card-img-top p-3"
+style="height:200px;object-fit:contain;">
+
+<div class="card-body">
+
+<h6 class="text-muted mb-1">
+Brand: <%= p.Brand || "No Brand" %>
+</h6>
+
+<h5 class="card-title">
+<%= p.ProductName %>
+</h5>
+
+<p class="text-secondary"
+style="height:40px;overflow:hidden;">
+<%= p.discription %>
+</p>
+
+<h5 class="text-success">
+₹<%= p.Productprice %>
+</h5>
+
+<button class="btn btn-primary w-100 addToCart"
+data-id="<%= p._id %>">
+Add To Cart
+</button>
+
+<a href="/webpage/single-product/<%= p._id %>"
+class="btn btn-outline-dark w-100 mt-2">
+View Details
+</a>
+
+</div>
+</div>
+</div>
+
+<% }) %>
+
+</div>
+
+<!-- NO RESULT MESSAGE -->
+<h4 id="noResult"
+class="text-center text-muted"
+style="display:none;">
+No products found
+</h4>
+
+</div>
+
+<script>
+
+// ADD TO CART
+document.querySelectorAll(".addToCart").forEach(btn=>{
+btn.onclick=async()=>{
+await fetch("/cart/add-to-cart",{
+method:"POST",
+headers:{"Content-Type":"application/json"},
+body:JSON.stringify({productId:btn.dataset.id})
+});
+
+const canvas=new bootstrap.Offcanvas(
+document.getElementById("cartCanvas")
+);
+canvas.show();
+
+loadCart();
+};
+});
+
+// SEARCH
+document.getElementById("searchInput").onkeyup=function(){
+let val=this.value.toLowerCase();
+let visible=0;
+
+document.querySelectorAll(".product-item").forEach(card=>{
+if(card.dataset.name.includes(val)){
+card.style.display="block";
+visible++;
+}else{
+card.style.display="none";
+}
+});
+
+document.getElementById("noResult").style.display=
+visible===0?"block":"none";
+};
+
+// SORT
+document.getElementById("sortSelect").onchange=function(){
+
+let items=[...document.querySelectorAll(".product-item")];
+let row=document.getElementById("productRow");
+
+if(this.value==="low"){
+items.sort((a,b)=>a.dataset.price-b.dataset.price);
+}
+
+if(this.value==="high"){
+items.sort((a,b)=>b.dataset.price-a.dataset.price);
+}
+
+if(this.value==="az"){
+items.sort((a,b)=>
+a.dataset.name.localeCompare(b.dataset.name));
+}
+
+if(this.value==="za"){
+items.sort((a,b)=>
+b.dataset.name.localeCompare(a.dataset.name));
+}
+
+items.forEach(i=>row.appendChild(i));
+};
+
+</script>
+
+<%- include("../common/footer") %>

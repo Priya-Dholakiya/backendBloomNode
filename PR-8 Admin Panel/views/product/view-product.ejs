@@ -1,0 +1,168 @@
+<%- include('../header') %>
+
+<style>
+.page-wrapper{
+    background:#f5f6f8;
+    padding:20px;
+}
+
+/* Card */
+.card{
+    border:1px solid #dcdcdc;
+    border-radius:8px;
+    background:#fff;
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    height:100%;
+}
+
+/* Image */
+.product-img{
+    background:#fff;
+    text-align:center;
+    padding:15px;
+    border-bottom:1px solid #e5e5e5;
+}
+
+.product-img img{
+    height:170px;
+    width:100%;
+    object-fit:contain;
+}
+
+/* Body */
+.card-body{
+    padding:15px;
+    flex-grow:1; /* pushes footer down */
+}
+
+.product-title{
+    font-size:18px;
+    font-weight:bold;
+    color:#333;
+    margin-bottom:8px;
+}
+
+/* LIMIT DESCRIPTION LINES */
+.desc{
+    font-size:14px;
+    color:#555;
+    display:-webkit-box;
+
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+    min-height:60px;
+}
+
+.label{
+    font-weight:bold;
+    color:#222;
+}
+
+.price{
+    font-size:18px;
+    font-weight:bold;
+    color:#2e7d32;
+    margin-top:10px;
+}
+
+/* Footer always bottom */
+.card-footer{
+    background:#fafafa;
+    border-top:1px solid #e5e5e5;
+    text-align:center;
+}
+
+/* Buttons */
+.btn-edit{
+    background:#1976d2;
+    color:white;
+    border:none;
+}
+
+.btn-edit:hover{
+    background:#125aa0;
+    color:white;
+}
+
+.btn-delete{
+    background:#d32f2f;
+    color:white;
+    border:none;
+}
+
+.btn-delete:hover{
+    background:#9a2424;
+    color:white;
+}
+</style>
+
+<div class="page-wrapper">
+
+<div class="page-breadcrumb mb-3">
+    <h4 class="page-title">Products</h4>
+</div>
+
+<div class="container-fluid">
+<div class="row">
+
+<% products.forEach((product,i)=>{ %>
+
+<div class="col-md-6 col-lg-4 mb-4 d-flex">
+
+<div class="card w-100">
+
+<!-- Image -->
+<div class="product-img">
+    <img src="<%= product.ProductImage %>">
+</div>
+
+<!-- Body -->
+<div class="card-body">
+
+<div class="product-title">
+    <%= product.ProductName %>
+</div>
+
+<p class="desc">
+    <span class="label">Description:</span>
+    <%= product.discription %>
+</p>
+
+<p>
+    <span class="label">Brand:</span>
+    <%= product.Brand %>
+</p>
+
+<p class="price">
+    ₹ <%= product.Productprice %>
+</p>
+
+</div>
+
+<!-- Footer -->
+<div class="card-footer">
+
+<a href="/product/edit-product/<%= product._id %>"
+   class="btn btn-edit btn-sm mr-2">
+   Edit
+</a>
+
+<a href="/product/delete-product/<%= product._id %>"
+   class="btn btn-delete btn-sm"
+   onclick="return confirm('Delete this product?')">
+   Delete
+</a>
+
+</div>
+
+</div>
+</div>
+
+<% }) %>
+
+</div>
+</div>
+
+<%- include('../footer') %>
