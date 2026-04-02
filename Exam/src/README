@@ -1,0 +1,121 @@
+# 🍲 Recipe Sharing API
+
+## 📌 Description
+
+Recipe Sharing API ek RESTful backend application hai jisme users recipes create, read, update aur delete kar sakte hain. Isme JWT-based authentication, role-based access control, aur multiuser support implement kiya gaya hai.
+
+---
+
+## 🚀 Features
+
+* 🔐 JWT Authentication (Login/Register)
+* 👥 Role-Based Access Control (Admin & User)
+* 🍲 CRUD Operations for Recipes
+* 💬 Comment System
+* 👤 Multiuser Support (User-specific recipes)
+* 🔗 Populate (User details with recipes)
+* 📡 RESTful API Structure
+
+---
+
+## 🛠️ Tech Stack
+
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* JSON Web Token (JWT)
+* bcryptjs
+
+## 🔑 API Endpoints
+
+### 🔐 Authentication
+
+* `POST /api/auth/register` → Register user
+* `POST /api/auth/login` → Login user
+
+---
+
+### 🍲 Recipes
+
+* `GET /api/recipes` → Get all recipes
+* `POST /api/recipes` → Create recipe (Auth required)
+* `PUT /api/recipes/:id` → Update recipe (Owner/Admin)
+* `DELETE /api/recipes/:id` → Delete recipe (Owner/Admin)
+* `GET /api/recipes/my` → Get logged-in user recipes
+
+---
+
+### 💬 Comments
+
+* `POST /api/comments` → Add comment
+* `GET /api/comments/:recipeId` → Get comments for a recipe
+
+---
+
+## 🔐 Authentication Method
+
+* JWT token use hota hai authentication ke liye
+* Token login ke baad response me milta hai
+
+### 📌 Example:
+
+```
+Authorization: Bearer YOUR_TOKEN_HERE
+```
+
+---
+
+## ⚙️ Installation & Setup
+
+1. Clone the repository:
+
+```
+git clone <your-repo-link>
+```
+
+2. Install dependencies:
+
+```
+npm install
+```
+
+3. Create `.env` file:
+
+```
+PORT=5000
+MONGO_URI=your_mongodb_connection
+JWT_SECRET=your_secret_key
+```
+
+4. Start the server:
+
+```
+npm start
+```
+
+---
+
+## 📡 Testing API
+
+* Postman
+* Thunder Client (VS Code extension)
+
+---
+
+## 👤 User Roles
+
+| Role  | Permissions                            |
+| ----- | -------------------------------------- |
+| Admin | Full access (delete/update any recipe) |
+| User  | Can manage own recipes only            |
+
+---
+
+## 🔗 Populate Example
+
+Recipes me user details show karne ke liye:
+
+```js
+Recipe.find().populate('createdBy', 'username email')
+```
